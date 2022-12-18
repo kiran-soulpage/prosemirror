@@ -1,0 +1,48 @@
+.App {
+  font-family: 'Roboto', sans-serif;
+}
+
+pre {
+  background-color: gray;
+  padding: 15px;
+  color: black;
+}
+code {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 14px;
+}
+
+td {
+  border: 1px solid rgb(193, 199, 208);
+  padding: 8px;
+}
+
+.ProseMirror {
+  padding: 4px 14px !important;
+}
+
+.ProseMirror .tableWrapper {
+  margin-block-end: 1em;
+}
+
+.ProseMirror .tableWrapper td p {
+  margin: 0px;
+}
+
+.ProseMirror .column-resize-handle {
+  z-index: 15;
+  background-color: #f9bbd7 !important;
+}
+
+img {
+  max-width: 100%;
+}
+
+code {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.markdown table {
+  width: 100%;
+}

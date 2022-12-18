@@ -1,25 +1,52 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./styles.css";
+import Editor2 from "./Editor";
+import Markdown from "react-markdown";
+import htmlParser from "react-html-parser";
 
-function App() {
+const acceptableNodes = ["table", "tbody", "thead", "u", "tr", "td"];
+
+const parseHtml = htmlParser({
+  isValidNode: (node) =>
+    node.type !== "script" && acceptableNodes.includes(node.name),
+});
+
+function convertFileToBuffer(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (e) => reject(e);
+
+    reader.readAsDataURL(file);
+  });
+}
+
+const onUpload = async (image) => {
+  const base64 = await convertFileToBuffer(image);
+  return base64;
+};
+
+const initialState = `pross`;
+
+export default function App() {
+  const [markdown, setMarkdown] = React.useState(initialState);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Epex Editor</h1>
+      <Editor2
+        onUpload={onUpload}
+        value={markdown}
+        onChange={setMarkdown}
+        showMenu
+      />
+      {/* <div className="markdown">
+        <Markdown escapeHtml={false} astPlugins={[parseHtml]}>
+          {markdown}
+        </Markdown>
+      </div> */}
+      {/* <pre>
+        <code>{markdown}</code>
+      </pre> */}
     </div>
   );
 }
-
-export default App;
